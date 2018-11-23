@@ -12,7 +12,7 @@
     "author": "Henrik Juntunen",
     "license": "HÖSÖ",
     "dependencies": {
-      "bcrypt": "^1.0.3",
+      "bcrypt": "^2.0.0", // "bcrypt": "^1.0.3", 
       "cors": "^2.8.4",
       "dotenv": "^4.0.0",
       "express": "^4.16.2",
