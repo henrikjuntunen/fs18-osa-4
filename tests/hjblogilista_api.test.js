@@ -3,8 +3,30 @@ const { app, server } = require('../index')
 const api = supertest(app)
 // const Note = require('../models/note')
 const { // format, initialblogs, nonExistingId, 
-    blogsInDb } = require('../utils/test_hjblogilista')
+    blogsInDb } = require('../utils/test_hjblogilista_api')
 
+describe('fetch blogs from blogs-database', async () => {
+
+  test('all blogs are returned with find({})', async () => {
+    console.log('uri', process.env.MONGODB_URI)
+    const blogsInDatabase = await blogsInDb()
+//    expect(response.body.length).toBe(blogsInDatabase.length)
+    console.log('blogsInDatabase', blogsInDatabase)
+    expect(blogsInDatabase.length).toBe(2)
+  })
+
+  test('blogs are returned as json', async () => {
+    const result = await api
+    .get('/api/blogs') 
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+    console.log('result', result)
+  })
+  
+})
+
+
+    /*
 describe.only('fetch blogs from blogs-database', async () => {
 
     test('environmetvariables are for test', async () => {
@@ -34,6 +56,7 @@ describe.only('fetch blogs from blogs-database', async () => {
         })
       })
 })
+*/
     /*
 describe('when there is initially some blogs saved', async () => {
   beforeAll(async () => {
@@ -158,10 +181,10 @@ describe('when there is initially some blogs saved', async () => {
     })
   })
 
-  afterAll(() => {
-    server.close()
-  })
-
+  
 })
 
 */
+afterAll(() => {
+    server.close()
+})

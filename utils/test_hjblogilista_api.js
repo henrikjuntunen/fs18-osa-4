@@ -1,5 +1,6 @@
 // const Note = require('../models/note')
-const Blog = require('../index')
+// const Blog = require('../index')
+const Blog = require('../models/blog.js')
 // const User = require('../models/user')
 
 /*
@@ -33,6 +34,7 @@ const blogsInDb = async () => {
   console.log('blogs', blogs)
   console.log('Blog', blogs.map(Blog))
   return blogs.map(Blog)
+  // return blogs
 }
 /*
 const usersInDb = async () => {

@@ -1,4 +1,4 @@
-//const http = require('http')
+// const http = require('http')
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
@@ -6,15 +6,17 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const middleware = require('./utils/middleware')
 const blogsRouter = require('./controllers/blogs')
-//const Blog = require('./models/blog.js')
-/*const Blog2 = mongoose.model('Blog', {
+// const Blog = require('./models/blog.js')
+/*
+const Blog2 = mongoose.model('Blog', {
   title: String,
   author: String,
   url: String,
   likes: Number
-})*/
+})
+*/
 
-//module.exports = Blog
+// module.exports = Blog
 
 app.use(cors())
 app.use(bodyParser.json())
