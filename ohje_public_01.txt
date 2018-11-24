@@ -1,0 +1,37 @@
+Tehdään kurssin osan 4 tehtävä
+
+Luodaan projekti githubiin (tämä on yksi tapa saada remote repository)
+Kloonataan (git clone ) projekti omalle lokaalille työasemalle
+Käynnistetään Visual Studio Code ja avataan yllä luotu hakemisto IDE:een
+
+Luodaan package.json workspacen jureen
+
+git commit - talletaan tilanne repositoryyn
+
+npm install
+Asennetaan npm ajoympäristö npm install komennolla joka kokoaa ympäristöön 
+tiedoston package.json avulla.
+
+npm start
+Käynnistetään sovellus - odotuksena on ilmoitus konsolille 
+"Server running on port 3003".
+
+
+24.11.2018 klo 23.20
+Tehtävä 4.2 valmis
+- sovellus
+index.js
+utils/middleware.js
+models/blog.js
+controllers/blogs.js
+- konfigurointi
+.env
+package.json
+- testit jest
+tests/hjblogilista_api.test.js
+tests/list_helper.js
+utils/test_hjblogilista_api.js
+utils/list_helper.js
+- testit http
+requests/get_blogilista_all.rest
+
