@@ -4,7 +4,7 @@ Luodaan projekti githubiin (tämä on yksi tapa saada remote repository)
 Kloonataan (git clone ) projekti omalle lokaalille työasemalle
 Käynnistetään Visual Studio Code ja avataan yllä luotu hakemisto IDE:een
 
-Luodaan package.json workspacen jureen
+Luodaan package.json workspacen juureen
 
 git commit - talletaan tilanne repositoryyn
 
