@@ -1,10 +1,10 @@
-const http = require('http')
+//const http = require('http')
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const mongoose = require('mongoose')
-//const middleware = require('./utils/middleware')
+const middleware = require('./utils/middleware')
 const blogsRouter = require('./controllers/blogs')
 //const Blog = require('./models/blog.js')
 /*const Blog2 = mongoose.model('Blog', {
@@ -18,7 +18,9 @@ const blogsRouter = require('./controllers/blogs')
 
 app.use(cors())
 app.use(bodyParser.json())
+app.use(middleware.logger)
 app.use('/api/blogs', blogsRouter)
+app.use(middleware.error)
 
 // const mongoUrl = 'mongodb://localhost/bloglist'
 if (process.env.NODE_ENV !== 'production') {
@@ -56,7 +58,10 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
 
-/* Tehtävä 4.1 - 23.11.2018
+/* Tehtävä 4 - 23.11.2018, 24.11.2018
+
+4.1 blogilista, osa 1
+
 Tee sovelluksesta toimiva npm-projekti. Jotta sovelluskehitys olisi sujuvaa, 
 konfiguroi sovellus suoritettavaksi nodemon:illa. Voit luoda sovellukselle 
 uuden tietokannan esim. mlabiin tai käyttää edellisen osan sovelluksen 
@@ -64,4 +69,25 @@ tietokantaa.
 
 Varmista, että sovellukseen on mahdollista lisätä blogeja Postmanilla tai 
 VS Code REST clientilla, ja että sovellus näyttää lisätyt blogit.
+
+4.2 blogilista, osa 2
+Jaa sovelluksen koodi osan 4 alun tapaan useaan moduuliin.
+
+HUOM etene todella pienin askelin, varmistaen että kaikki toimii koko ajan. 
+Jos yrität “oikaista” tekemällä monta asiaa kerralla, on Murphyn lain 
+perusteella käytännössä varmaa, että jokin menee pahasti pieleen ja “oikotien” 
+takia maaliin päästään paljon myöhemmin kuin systemaattisin pienin askelin.
+
+Paras käytänne on commitoida koodi aina stabiilissa tilanteessa, tällöin on 
+helppo palata aina toimivaan tilanteeseen jos koodi menee liian solmuun.
+
+yksikkötestaus
+Tehdään joukko blogilistan käsittelyyn tarkoitettuja apufunktioita. Tee 
+funktiot esim. tiedostoon utils/list_helper.js. Tee testit sopivasti 
+nimettyyn tiedostoon hakemistoon tests.
+
+HUOM: jos jokin testi ei mene läpi, ei kannata ongelmaa korjatessa 
+suorittaa kaikkia testejä, vaan ainoastaan rikkinäistä testiä hyödyntäen 
+only-metodia.
+
 */
