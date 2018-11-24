@@ -31,12 +31,13 @@ const nonExistingId = async () => {
 const blogsInDb = async () => {
   const blogs = await Blog.find({})
   console.log('blogs', blogs)
+  console.log('Blog', blogs.map(Blog))
   return blogs.map(Blog)
 }
 /*
 const usersInDb = async () => {
   const users = await User.find({})
-  return users
+  return userss
 }
 */
 module.exports = {

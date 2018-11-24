@@ -4,13 +4,13 @@ const app = express()
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const mongoose = require('mongoose')
-require('dotenv').config()  // tämä tarvitaan saadaksemme process.env toimivaksi
-const Blog = mongoose.model('Blog', {
+const Blog = require('./models/blog.js')
+/*const Blog2 = mongoose.model('Blog', {
   title: String,
   author: String,
   url: String,
   likes: Number
-})
+})*/
 
 module.exports = Blog
 
@@ -18,6 +18,9 @@ app.use(cors())
 app.use(bodyParser.json())
 
 // const mongoUrl = 'mongodb://localhost/bloglist'
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config()
+}
 const mongoUrl = process.env.MONGODB_URI
 
 mongoose.connect(mongoUrl)
