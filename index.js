@@ -4,8 +4,8 @@ const app = express()
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const middleware = require('./utils/middleware')
-//const blogsRouter = require('./controllers/blogs')
+//const middleware = require('./utils/middleware')
+const blogsRouter = require('./controllers/blogs')
 //const Blog = require('./models/blog.js')
 /*const Blog2 = mongoose.model('Blog', {
   title: String,
@@ -18,6 +18,7 @@ const middleware = require('./utils/middleware')
 
 app.use(cors())
 app.use(bodyParser.json())
+app.use('/api/blogs', blogsRouter)
 
 // const mongoUrl = 'mongodb://localhost/bloglist'
 if (process.env.NODE_ENV !== 'production') {
