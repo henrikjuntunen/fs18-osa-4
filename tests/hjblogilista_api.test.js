@@ -8,22 +8,22 @@ const { // format, initialblogs, nonExistingId,
 describe('fetch blogs from blogs-database', async () => {
 
   test('all blogs are returned with find({})', async () => {
-    console.log('uri', process.env.MONGODB_URI)
+ //   console.log('uri', process.env.MONGODB_URI)
     const blogsInDatabase = await blogsInDb()
 //    expect(response.body.length).toBe(blogsInDatabase.length)
     console.log('blogsInDatabase', blogsInDatabase)
     expect(blogsInDatabase.length).toBe(2)
   })
-/*
+
   test('blogs are returned as json', async () => {
     const result = await api
     .get('/api/blogs') 
     .expect(200)
     .expect('Content-Type', /application\/json/)
-    console.log('result', result)
+    //console.log('result', result)
   })
-*/
-  test('blogs are returned as json', async () => {
+
+  test('all two blogs are returned', async () => {
       const response = await api
       .get('/api/blogs')
 
