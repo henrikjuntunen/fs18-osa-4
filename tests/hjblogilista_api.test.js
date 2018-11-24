@@ -14,7 +14,7 @@ describe('fetch blogs from blogs-database', async () => {
     console.log('blogsInDatabase', blogsInDatabase)
     expect(blogsInDatabase.length).toBe(2)
   })
-
+/*
   test('blogs are returned as json', async () => {
     const result = await api
     .get('/api/blogs') 
@@ -22,7 +22,14 @@ describe('fetch blogs from blogs-database', async () => {
     .expect('Content-Type', /application\/json/)
     console.log('result', result)
   })
-  
+*/
+  test('blogs are returned as json', async () => {
+      const response = await api
+      .get('/api/blogs')
+
+      expect(response.body.length).toBe(2)
+  })
+
 })
 
 

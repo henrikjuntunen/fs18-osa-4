@@ -1,4 +1,4 @@
-// const http = require('http')
+const http = require('http')
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
@@ -56,9 +56,29 @@ app.post('/api/blogs', (request, response) => {
 })
 */
 const PORT = process.env.PORT3003
+/*
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
+*/
+
+const server = http.createServer(app)
+
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
+})
+/*
+server.listen(config.port, () => {
+  console.log(`Server running on port ${config.port}`)
+})
+*/
+server.on('close', () => {
+  mongoose.connection.close()
+})
+
+module.exports = {
+  app, server
+}
 
 /* Tehtävä 4 - 23.11.2018, 24.11.2018
 
