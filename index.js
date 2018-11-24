@@ -4,7 +4,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const mongoose = require('mongoose')
-
+require('dotenv').config()  // tämä tarvitaan saadaksemme process.env toimivaksi
 const Blog = mongoose.model('Blog', {
   title: String,
   author: String,
@@ -18,8 +18,15 @@ app.use(cors())
 app.use(bodyParser.json())
 
 // const mongoUrl = 'mongodb://localhost/bloglist'
-const mongoUrl = 'mongodb://risto:pass2wRisto@ds033754.mlab.com:33754/hjblogilista'
+const mongoUrl = process.env.MONGODB_URI
+
 mongoose.connect(mongoUrl)
+.then( () => {
+    console.log('connected to database', mongoUrl)
+})
+.catch( err => {
+    console.log('err', err)
+})
 
 app.get('/api/blogs', (request, response) => {
   Blog
@@ -38,7 +45,7 @@ app.post('/api/blogs', (request, response) => {
     })
 })
 
-const PORT = 3003
+const PORT = process.env.PORT3003
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })

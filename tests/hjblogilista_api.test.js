@@ -3,13 +3,24 @@ const { app, server } = require('../index')
 const api = supertest(app)
 // const Note = require('../models/note')
 const { // format, initialblogs, nonExistingId, 
-    blogsInDb } = require('./test_hjblogilista')
+    blogsInDb } = require('../utils/test_hjblogilista')
 
-describe('fetch blogs from blogs-database', async () => {
+describe.only('fetch blogs from blogs-database', async () => {
+
+    test('environmetvariables are for test', async () => {
+        let result = 'test'
+        result = process.env.NODE_ENV
+        expect(result).toBe('test')
+    })
+
+    test('reading environmetvariables file really happens locally', async () => {
+      let result = process.env.ENVFILE
+      expect(result).toBe('envfile')
+    })
 
     test('all blogs are returned as json by GET /api/blogs', async () => {
+        console.log('uri', process.env.MONGODB_URI)
         const blogsInDatabase = await blogsInDb()
-    
         const response = await api
           .get('/api/blogs')
           .expect(200)
