@@ -4,7 +4,9 @@ const app = express()
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const Blog = require('./models/blog.js')
+const middleware = require('./utils/middleware')
+//const blogsRouter = require('./controllers/blogs')
+//const Blog = require('./models/blog.js')
 /*const Blog2 = mongoose.model('Blog', {
   title: String,
   author: String,
@@ -12,7 +14,7 @@ const Blog = require('./models/blog.js')
   likes: Number
 })*/
 
-module.exports = Blog
+//module.exports = Blog
 
 app.use(cors())
 app.use(bodyParser.json())
@@ -30,7 +32,7 @@ mongoose.connect(mongoUrl)
 .catch( err => {
     console.log('err', err)
 })
-
+/*
 app.get('/api/blogs', (request, response) => {
   Blog
     .find({})
@@ -47,7 +49,7 @@ app.post('/api/blogs', (request, response) => {
       response.status(201).json(result)
     })
 })
-
+*/
 const PORT = process.env.PORT3003
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
