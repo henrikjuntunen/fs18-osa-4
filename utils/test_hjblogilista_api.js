@@ -31,8 +31,8 @@ const nonExistingId = async () => {
 */
 const blogsInDb = async () => {
   const blogs = await Blog.find({})
-  console.log('blogs', blogs)
-  console.log('Blog', blogs.map(Blog))
+ // console.log('blogs', blogs)
+ // console.log('Blog', blogs.map(Blog))
   return blogs.map(Blog)
   // return blogs
 }

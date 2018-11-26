@@ -5,13 +5,17 @@ const api = supertest(app)
 const { // format, initialblogs, nonExistingId, 
     blogsInDb } = require('../utils/test_hjblogilista_api')
 
-describe('fetch blogs from blogs-database', async () => {
+// 200 = OK
+// 201 = Created
 
+describe('fetch blogs from blogs-database', async () => {
+  // 4.8 Tee API-tason testit blogilistan 
+  // osoitteeseen /api/blogs tapahtuvalle HTTP GET -pyynnölle.
   test('all blogs are returned with find({})', async () => {
  //   console.log('uri', process.env.MONGODB_URI)
     const blogsInDatabase = await blogsInDb()
 //    expect(response.body.length).toBe(blogsInDatabase.length)
-    console.log('blogsInDatabase', blogsInDatabase)
+//    console.log('blogsInDatabase', blogsInDatabase)
     expect(blogsInDatabase.length).toBe(2)
   })
 
@@ -32,6 +36,56 @@ describe('fetch blogs from blogs-database', async () => {
 
 })
 
+describe('insert new blogs to blogs-database', async () => {
+
+  test('POST /api/blogs succeeds with valid data', async () => {
+    const blogsAtStart = await blogsInDb()
+
+    /*
+    const Blog = mongoose.model('Blog', {
+    title: String,
+    author: String,
+    url: String,
+    likes: Number
+    })
+    */
+   /*
+           {
+          _id: "5a422bc61b54a676234d17fc",
+          title: "Type wars",
+          author: "Robert C. Martin",
+          url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
+          likes: 2,
+          __v: 0
+        }  
+   */
+    const newBlog = {
+      title: 'async/await yksinkertaistaa asynkronisten funktioiden kutsua',
+      author: 'true',
+      url: 'http://www.hs.fi',
+      likes: 500006
+    }
+
+    await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
+
+    const blogsAfterOperation = await blogsInDb()
+
+    expect(blogsAfterOperation.length).toBe(blogsAtStart.length + 1)
+  })
+  
+  test('POST /api/blogs succeeds with valid data (2)', async () => {
+    const blogsAfterOperation = await blogsInDb()
+
+    const content = blogsAfterOperation.map(r => r.title)
+    expect(content).toContain('async/await yksinkertaistaa asynkronisten funktioiden kutsua')
+  })
+
+
+})
 
     /*
 describe.only('fetch blogs from blogs-database', async () => {

@@ -99,7 +99,7 @@ describe('total likes in blogs', () => {
 
 })
 
-describe.only('favorite blog', () => {
+describe('favorite blog', () => {
 
     const blogs = [
         {

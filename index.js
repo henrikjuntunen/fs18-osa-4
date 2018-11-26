@@ -122,12 +122,32 @@ Määrittele funktio totalLikes joka saa parametrikseen taulukollisen blogeja.
 Funktio palauttaa blogien yhteenlaskettujen tykkäysten eli likejen määrän.
 
 Määrittele funktiolle sopivat testit. Funktion testit kannattaa laittaa 
-describe-lohkoon jolloin testien tulostus ryhmittyy miellyttävästi:
+describe-lohkoon jolloin testien tulostus ryhmittyy miellyttävästi.
 
 4.5* apufunktioita ja yksikkötestejä, osa 3
 
 Määrittele funktio favoriteBlog joka saa parametrikseen taulukollisen blogeja. 
 Funktio selvittää millä blogilla on eniten likejä. Jos suosikkeja on monta, 
 riittää että funktio palauttaa niistä jonkun.
+
+4.6* apufunktioita ja yksikkötestejä, osa 4
+Tämä ja seuraava tehtävä ovat jo hieman haastavampia. Tehtävien tekeminen 
+ei ole osan jatkon kannalta oleellista, eli voi olla hyvä idea palata näihin 
+vasta kun muu osa on kahlattu läpi.
+
+4.7* apufunktioita ja yksikkötestejä, osa 5
+Määrittele funktio mostLikes joka saa parametrikseen taulukollisen blogeja. 
+Funktio selvittää kirjoittajan, kenen blogeilla on eniten likejä. Funktion 
+paluuarvo kertoo myös suosikkiblogaajan likejen yhteenlasketun määrän.
+
+4.8 blogilistan testit, osa 1
+Tee API-tason testit blogilistan osoitteeseen /api/blogs tapahtuvalle 
+HTTP GET -pyynnölle.
+Kun testi on valmis, refaktoroi operaatio käyttämään promisejen sijaan 
+async/awaitia.
+
+The Promise object represents the eventual completion (or failure) of an 
+asynchronous operation, and its resulting value.
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
 */

@@ -42,3 +42,6 @@ npm run test /tests/list_helper.test.js
 JavaScript olioiden käsittely
 https://www.w3schools.com/js/js_object_definition.asp
 Tehtävät * 4.5, 4.6 ja 4.7
+
+npm run test /tests/list_helper.test.js
+.skip ja .only
