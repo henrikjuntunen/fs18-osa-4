@@ -19,7 +19,8 @@ const favoriteBlog = (blogs) => {
             mostLikes = element.likes
             i = j
         }
-   //     console.log('favoriteBlog', i, j++)
+        j++
+   //     console.log('favoriteBlog', i, j)
     });
  //   console.log('favoriteBlog[i]', i, blogs[i])
     return blogs[i]
