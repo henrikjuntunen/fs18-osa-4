@@ -35,3 +35,5 @@ utils/list_helper.js
 - testit http
 requests/get_blogilista_all.rest
 
+25.11.2018 klo 9.20
+npm run test /tests/list_helper.test.js

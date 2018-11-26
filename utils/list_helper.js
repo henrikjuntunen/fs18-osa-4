@@ -1,23 +1,33 @@
-// blogilistan käisttelyyn tarkoitettuja apufunktioita - helpers
-//
-
-// title takaperin
-const palindrom = (string) => {
-    console.log('palindrom')
-    return string.split('').reverse().join('')
+const dummy = (blogs) => {
+    // ...
 }
 
-// average of likes
-const average = (array) => {
-    console.log('average')
-    const reducer = (sum, item) => {
-        return sum + item
-    }
-// fail    return array.reduce(reducer, 0) / array.length
-    return array.length === 0 ? 0 : array.reduce(reducer, 0) / array.length
+const totalLikes = (blogs) => {
+    let total = 0
+    blogs.forEach(element => {
+        total += element.likes
+    });
+    return total
 }
-  
+
+const favoriteBlog = (blogs) => {
+    let mostLikes = 0
+    let i = 0
+    let j = 0
+    blogs.forEach(element => {
+        if (mostLikes < element.likes) {
+            mostLikes = element.likes
+            i = j
+        }
+   //     console.log('favoriteBlog', i, j++)
+    });
+ //   console.log('favoriteBlog[i]', i, blogs[i])
+    return blogs[i]
+
+}
+
 module.exports = {
-    palindrom,
-    average
+    dummy,
+    totalLikes,
+    favoriteBlog
 }

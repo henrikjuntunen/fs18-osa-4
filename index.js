@@ -112,4 +112,22 @@ HUOM: jos jokin testi ei mene läpi, ei kannata ongelmaa korjatessa
 suorittaa kaikkia testejä, vaan ainoastaan rikkinäistä testiä hyödyntäen 
 only-metodia.
 
+4.3 apufunktioita ja yksikkötestejä, osa 1
+Määrittele ensin funktio dummy joka saa parametrikseen taulukollisen 
+blogeja ja palauttaa aina luvun 1. Tiedoston list_helper.js sisällöksi 
+siis tulee tässä vaiheessa
+
+4.4 apufunktioita ja yksikkötestejä, osa 2
+Määrittele funktio totalLikes joka saa parametrikseen taulukollisen blogeja. 
+Funktio palauttaa blogien yhteenlaskettujen tykkäysten eli likejen määrän.
+
+Määrittele funktiolle sopivat testit. Funktion testit kannattaa laittaa 
+describe-lohkoon jolloin testien tulostus ryhmittyy miellyttävästi:
+
+4.5* apufunktioita ja yksikkötestejä, osa 3
+
+Määrittele funktio favoriteBlog joka saa parametrikseen taulukollisen blogeja. 
+Funktio selvittää millä blogilla on eniten likejä. Jos suosikkeja on monta, 
+riittää että funktio palauttaa niistä jonkun.
+
 */
