@@ -99,7 +99,7 @@ describe('total likes in blogs', () => {
 
 })
 
-describe('favorite blog', () => {
+describe.only('favorite blog', () => {
 
     const blogs = [
         {
@@ -107,7 +107,7 @@ describe('favorite blog', () => {
           title: "React patterns",
           author: "Michael Chan",
           url: "https://reactpatterns.com/",
-          likes: 7,
+          likes: 77,
           __v: 0
         },
         {
@@ -126,6 +126,22 @@ describe('favorite blog', () => {
           likes: 12,
           __v: 0
         },
+        {
+            _id: "5a422b3a2b54a676234d17f9",
+            title: "Canonical string reduction 2",
+            author: "Edsger W. Dijkstra",
+            url: "http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html",
+            likes: 1,
+            __v: 0
+          },
+          {
+            _id: "5a422b3a3b54a676234d17f9",
+            title: "Canonical string reduction 3",
+            author: "Edsger W. Dijkstra",
+            url: "http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html",
+            likes: 12,
+            __v: 0
+          },
         {
           _id: "5a422b891b54a676234d17fa",
           title: "First class tests",
@@ -152,14 +168,35 @@ describe('favorite blog', () => {
         }  
       ]
 
-      test('if the favorite blog is [2]', () => {
+      test('if the favorite blog is [0]', () => {
         let result = listHelper.favoriteBlog(blogs)
-        expect(result).toEqual(blogs[2])
+        expect(result).toEqual(blogs[0])
       })
 
       test('if the toEqual is correct comparation here', () => {
         expect(blogs[2]).toEqual(blogs[2])
       })
+
+      test('if the favorite author is ["Edsger W. Dijkstra"] according blogs count', () => {
+        let result = listHelper.mostBlogs(blogs)
+        expect(result.author).toEqual('Edsger W. Dijkstra')
+        expect(result.authorBlogCount).toEqual(4)
+      })
+
+      test('if the toEqual is correct comparation here', () => {
+        expect('Edsger W. Dijkstra').toEqual('Edsger W. Dijkstra')
+      })
+
+      test('if the toEqual is correct comparation here', () => {
+        expect('Edsger W. Dijkstra').toEqual("Edsger W. Dijkstra")
+      })
+
+      test('if the favorite author is ["Michael Chan"] according likes', () => {
+        let result = listHelper.mostLikes(blogs)
+        expect(result.author).toEqual('Michael Chan')
+        expect(result.likes).toEqual(77)
+      })
+
 
 })
 // npm run test /tests/list_helper.test.js
