@@ -8,77 +8,73 @@ const { // format, initialblogs, nonExistingId,
 // 200 = OK
 // 201 = Created
 
-describe('fetch blogs from blogs-database', async () => {
+describe('pro fetch blogs from blogs-database', () => {
   // 4.8 Tee API-tason testit blogilistan 
   // osoitteeseen /api/blogs tapahtuvalle HTTP GET -pyynnölle.
-  test('all blogs are returned with find({})', async () => {
- //   console.log('uri', process.env.MONGODB_URI)
-    const blogsInDatabase = await blogsInDb()
-//    expect(response.body.length).toBe(blogsInDatabase.length)
-//    console.log('blogsInDatabase', blogsInDatabase)
+  test('all blogs are returned with find({})', () => {
+    const blogsInDatabase = blogsInDb()
     expect(blogsInDatabase.length).toBe(2)
   })
 
-  test('blogs are returned as json', async () => {
-    const result = await api
+  test('blogs are returned as json', () => {
+    const result = api
     .get('/api/blogs') 
     .expect(200)
     .expect('Content-Type', /application\/json/)
     //console.log('result', result)
   })
 
-  test('all two blogs are returned', async () => {
-      const response = await api
+  test('all two blogs are returned', () => {
+      const response = api
       .get('/api/blogs')
-
-      expect(response.body.length).toBe(2)
+      .expect(body.length).toBe(2)
+  //    .expect(response.body.length).toBe(2)
   })
 
 })
 
-describe('insert new blogs to blogs-database', async () => {
+describe.skip('pro insert new blogs to blogs-database', () => {
 
-  test('POST /api/blogs succeeds with valid data', async () => {
-    const blogsAtStart = await blogsInDb()
-
+  test('POST /api/blogs succeeds with valid data', () => {
+    
     /*
     const Blog = mongoose.model('Blog', {
-    title: String,
-    author: String,
-    url: String,
-    likes: Number
+      title: String,
+      author: String,
+      url: String,
+      likes: Number
     })
     */
    /*
-           {
-          _id: "5a422bc61b54a676234d17fc",
-          title: "Type wars",
-          author: "Robert C. Martin",
-          url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
-          likes: 2,
-          __v: 0
-        }  
-   */
-    const newBlog = {
-      title: 'async/await yksinkertaistaa asynkronisten funktioiden kutsua',
-      author: 'true',
-      url: 'http://www.hs.fi',
-      likes: 500006
+   {
+     _id: "5a422bc61b54a676234d17fc",
+     title: "Type wars",
+     author: "Robert C. Martin",
+     url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
+     likes: 2,
+     __v: 0
+    }  
+    */
+   const newBlog = {
+     title: 'async/await yksinkertaistaa asynkronisten funktioiden kutsua',
+     author: 'true',
+     url: 'http://www.hs.fi',
+     likes: 500006
     }
-
-    await api
+    
+    const blogsAtStart = blogsInDb()
+    .api
       .post('/api/blogs')
       .send(newBlog)
       .expect(201)
       .expect('Content-Type', /application\/json/)
 
-    const blogsAfterOperation = await blogsInDb()
-
-    expect(blogsAfterOperation.length).toBe(blogsAtStart.length + 1)
+    const blogsAfterOperation = blogsInDb()
+    .expect(blogsAfterOperation.length).toBe(blogsAtStart.length + 1)
   })
   
-  test('POST /api/blogs succeeds with valid data (2)', async () => {
-    const blogsAfterOperation = await blogsInDb()
+  test('POST /api/blogs succeeds with valid data (2)', () => {
+    const blogsAfterOperation = blogsInDb()
 
     const content = blogsAfterOperation.map(r => r.title)
     expect(content).toContain('async/await yksinkertaistaa asynkronisten funktioiden kutsua')

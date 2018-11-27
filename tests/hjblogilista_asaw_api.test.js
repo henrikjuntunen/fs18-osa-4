@@ -8,7 +8,7 @@ const { // format, initialblogs, nonExistingId,
 // 200 = OK
 // 201 = Created
 
-describe('fetch blogs from blogs-database', async () => {
+describe('fetch blogs from blogs-database', () => {
   // 4.8 Tee API-tason testit blogilistan 
   // osoitteeseen /api/blogs tapahtuvalle HTTP GET -pyynnölle.
   test('all blogs are returned with find({})', async () => {
@@ -36,7 +36,7 @@ describe('fetch blogs from blogs-database', async () => {
 
 })
 
-describe('insert new blogs to blogs-database', async () => {
+describe('insert new blogs to blogs-database', () => {
 
   test('POST /api/blogs succeeds with valid data', async () => {
     const blogsAtStart = await blogsInDb()
