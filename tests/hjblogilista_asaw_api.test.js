@@ -25,7 +25,7 @@ const initialBlogs = [
     "likes": 12
   },
   {
-    "title": "Type wars",
+    "title": "Type wars black",
     "author": "Robert C. Martin",
     "url": "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html"
   },
@@ -235,16 +235,16 @@ describe('(c) insert new blogs to blogs-database', () => {
 
   test('(1) DELETE /api/notes/:id succeeds with proper statuscode', async () => {
     const blogsAtStart = await blogsInDb()
-
+    console.log('addedBlog', addedBlog)
     await api
-    .delete(`/api/blogs/${addedNote._id}`)
+    .delete(`/api/blogs/${addedBlog._id}`)
     .expect(204)
 
     const blogsAfterOperation = await blogsInDb()
 
-    const contents = blogsAfterOperation.map(r => r.content)
+    const titles = blogsAfterOperation.map(r => r.title)
 
-    expect(contents).not.toContain(addedBlog.content)
+    expect(titles).not.toContain(addedBlog.title)
     expect(blogsAfterOperation.length).toBe(blogsAtStart.length - 1)
   })
 })

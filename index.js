@@ -172,4 +172,11 @@ että HTTP GET -operaatioiden testit suoritetaan ennen uusien blogien lisäämis
 testaamista. Määrittele myös sopivia apumetodeja, joiden avulla saat poistettua 
 testeistä copypastea.
 
+4.13 blogilistan laajennus, osa 2
+Toteuta sovellukseen mahdollisuus yksittäisen blogin poistoon.
+Käytä async/awaitia. Noudata operaation HTTP-rajapinnan suhteen 
+RESTful-käytänteitä.
+Saat toteuttaa ominaisuudelle testit jos haluat. Jos et, varmista 
+ominaisuuden toimivuus esim. Postmanilla.
+
 */
