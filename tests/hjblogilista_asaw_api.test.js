@@ -249,6 +249,10 @@ describe('(c) insert new blogs to blogs-database', () => {
   })
 })
 
+describe('(d) update blogs to blogs-database', () => {
+  // PUT
+})
+
 afterAll(() => {
   console.log('(99) after all in hjblogilista')
     server.close()
