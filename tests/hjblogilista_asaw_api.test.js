@@ -8,10 +8,10 @@ const { // format, initialblogs, nonExistingId,
 // 200 = OK
 // 201 = Created
 
-describe('fetch blogs from blogs-database', () => {
+describe('(a) fetch blogs from blogs-database', () => {
   // 4.8 Tee API-tason testit blogilistan 
   // osoitteeseen /api/blogs tapahtuvalle HTTP GET -pyynnölle.
-  test('all blogs are returned with find({})', async () => {
+  test('(1) all blogs are returned with find({})', async () => {
  //   console.log('uri', process.env.MONGODB_URI)
     const blogsInDatabase = await blogsInDb()
 //    expect(response.body.length).toBe(blogsInDatabase.length)
@@ -19,7 +19,7 @@ describe('fetch blogs from blogs-database', () => {
     expect(blogsInDatabase.length).toBe(2)
   })
 
-  test('blogs are returned as json', async () => {
+  test('(2) blogs are returned as json', async () => {
     const result = await api
     .get('/api/blogs') 
     .expect(200)
@@ -27,7 +27,7 @@ describe('fetch blogs from blogs-database', () => {
     //console.log('result', result)
   })
 
-  test('all two blogs are returned', async () => {
+  test('(3) all two blogs are returned', async () => {
       const response = await api
       .get('/api/blogs')
 
@@ -36,9 +36,9 @@ describe('fetch blogs from blogs-database', () => {
 
 })
 
-describe('insert new blogs to blogs-database', () => {
+describe('(b) insert new blogs to blogs-database', () => {
 
-  test('POST /api/blogs succeeds with valid data', async () => {
+  test('(1) POST /api/blogs succeeds with valid data', async () => {
     const blogsAtStart = await blogsInDb()
 
     /*
@@ -77,13 +77,33 @@ describe('insert new blogs to blogs-database', () => {
     expect(blogsAfterOperation.length).toBe(blogsAtStart.length + 1)
   })
   
-  test('POST /api/blogs succeeds with valid data (2)', async () => {
+  test('(2) POST /api/blogs succeeds with valid data (2)', async () => {
     const blogsAfterOperation = await blogsInDb()
 
     const content = blogsAfterOperation.map(r => r.title)
     expect(content).toContain('async/await yksinkertaistaa asynkronisten funktioiden kutsua')
   })
 
+  test('(3) POST /api/blogs likes defaults to 0 if missing', async () => {
+    const blogsAtStart = await blogsInDb()
+    const newBlog = {
+      title: 'async/await yksinkertaistaa asynkronisten funktioiden kutsua',
+      author: 'true',
+      url: 'http://www.lapinkansa.fi'
+    }
+
+    const res = await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
+    console.log('res', res)
+    const blogsAfterOperation = await blogsInDb()
+    console.log('blogsAfterOperation', blogsAfterOperation)
+    expect(blogsAfterOperation.length).toBe(blogsAtStart.length + 1)
+    expect(res.body.likes).toBe(0)
+
+  })
 
 })
 
