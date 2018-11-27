@@ -161,4 +161,9 @@ Tee testi joka varmistaa, että jos kentälle likes ei anneta arvoa,
 asetetaan sen arvoksi 0. Muiden kenttien sisällöstä ei tässä tehtävässä 
 vielä välitetä. Laajenna ohjelmaa siten, että testi menee läpi.
 
+4.11* blogilistan testit, osa 4
+Tee testit blogin lisäämiselle, eli osoitteeseen /api/blogs tapahtuvalle 
+HTTP POST -pyynnölle, joka varmistaa, että jos uusi blogi ei sisällä kenttiä title ja url, pyyntöön vastataan statuskoodilla 400 Bad request
+Laajenna toteutusta siten, että testit menevät läpi.
+
 */
