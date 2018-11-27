@@ -59,4 +59,18 @@ blogsRouter.post('/', (request, response) => {
     
 })
 */
+
+blogsRouter.delete('/:id', (request, response) => {
+    Blog
+      .findByIdAndRemove(request.params.id)
+      .then(result => {
+        console.log(result)
+        response.status(204).end()
+      })
+      .catch(error => {
+        response.status(400).send({ error: 'malformatted id' })
+        console.log('error', error)
+      })
+})
+
 module.exports = blogsRouter

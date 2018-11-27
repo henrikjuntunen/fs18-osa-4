@@ -10,6 +10,57 @@ const Blog = require('../models/blog.js')
 // 201 = Created
 // 400 = missing
 
+
+const initialBlogs = [
+  {
+    "title": "metsäkeskus",
+    "author": "Suomen metsäkeskus",
+    "url": "https://www.metsakeskus.fi/blogi",
+    "likes": 7
+  },
+  {
+    "title": "Suomen luonnonsuojeluliitto",
+    "author": "Suomen luonnonsuojeluliiton keskustoimisto",
+    "url": "https://www.sll.fi/arkisto/ajankohtaista",
+    "likes": 12
+  },
+  {
+    "title": "Type wars",
+    "author": "Robert C. Martin",
+    "url": "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html"
+  },
+  {
+    "author": "Robert C. Martin",
+    "url": "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html"
+  },
+  {
+    "title": "Type wars",
+    "url": "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html"
+  },
+  {
+    "title": "Type wars",
+    "author": "Robert C. Martin"
+  },
+  {
+    "title": "Type wars",
+    "author": "Robert C. Martin",
+    "url": "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
+    "likes": 77
+  }  
+]
+
+beforeAll(async () => {
+  console.log('(0) before all tests of hjblogilista')
+
+  await Blog.remove({})
+
+  let blogObject = new Blog(initialBlogs[0])
+  await blogObject.save()
+
+  blogObject = new Blog(initialBlogs[1])
+  await blogObject.save()
+})
+
 describe('(a) fetch blogs from blogs-database', () => {
 
   test('(1) all blogs are returned with find({})', async () => {
@@ -173,32 +224,33 @@ describe('(b) insert new blogs to blogs-database', () => {
 
 })
 
-afterAll(() => {
-    server.close()
+describe('(c) insert new blogs to blogs-database', () => {
+
+  let addedBlog
+  
+  beforeAll(async () => {
+    addedBlog = new Blog(initialBlogs[2])
+    await addedBlog.save()
+  })
+
+  test('(1) DELETE /api/notes/:id succeeds with proper statuscode', async () => {
+    const blogsAtStart = await blogsInDb()
+
+    await api
+    .delete(`/api/blogs/${addedNote._id}`)
+    .expect(204)
+
+    const blogsAfterOperation = await blogsInDb()
+
+    const contents = blogsAfterOperation.map(r => r.content)
+
+    expect(contents).not.toContain(addedBlog.content)
+    expect(blogsAfterOperation.length).toBe(blogsAtStart.length - 1)
+  })
 })
 
-const initialBlogs = [
-  {
-    "title": "metsäkeskus",
-    "author": "Suomen metsäkeskus",
-    "url": "https://www.metsakeskus.fi/blogi",
-    "likes": 7
-  },
-  {
-    "title": "Suomen luonnonsuojeluliitto",
-    "author": "Suomen luonnonsuojeluliiton keskustoimisto",
-    "url": "https://www.sll.fi/arkisto/ajankohtaista",
-    "likes": 12
-  }
-]
-
-beforeAll(async () => {
-  await Blog.remove({})
-
-  let blogObject = new Blog(initialBlogs[0])
-  await blogObject.save()
-
-  blogObject = new Blog(initialBlogs[1])
-  await blogObject.save()
+afterAll(() => {
+  console.log('(99) after all in hjblogilista')
+    server.close()
 })
 /* */ 
