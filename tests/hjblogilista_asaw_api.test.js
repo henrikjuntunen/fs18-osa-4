@@ -87,7 +87,7 @@ describe('(b) insert new blogs to blogs-database', () => {
   test('(3) POST /api/blogs likes defaults to 0 if missing', async () => {
     const blogsAtStart = await blogsInDb()
     const newBlog = {
-      title: 'async/await yksinkertaistaa asynkronisten funktioiden kutsua',
+      title: 'async/awaitXX yksinkertaistaa asynkronisten funktioiden kutsua',
       author: 'true',
       url: 'http://www.lapinkansa.fi'
     }
@@ -98,6 +98,7 @@ describe('(b) insert new blogs to blogs-database', () => {
       .expect(201)
       .expect('Content-Type', /application\/json/)
     console.log('res', res)
+    console.log('res.body', res.body)
     const blogsAfterOperation = await blogsInDb()
     console.log('blogsAfterOperation', blogsAfterOperation)
     expect(blogsAfterOperation.length).toBe(blogsAtStart.length + 1)
