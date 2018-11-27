@@ -7,6 +7,7 @@ const { // format, initialblogs, nonExistingId,
 
 // 200 = OK
 // 201 = Created
+// 400 = missing
 
 describe('(a) fetch blogs from blogs-database', () => {
   // 4.8 Tee API-tason testit blogilistan 
@@ -106,8 +107,35 @@ describe('(b) insert new blogs to blogs-database', () => {
 
   })
 
+  test('(4) POST /api/blogs missing fields', async () => {
+    const blogsAtStart = await blogsInDb()
+    const newBlog = {
+    //  title: 'async/awaitXX yksinkertaistaa asynkronisten funktioiden kutsua',
+      author: 'true',
+      url: 'http://www.lapinkansa.fi',
+      likes: 9
+    }
+
+    const res = await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(400)
+      .expect('Content-Type', /application\/json/)
+    console.log('res', res)
+    console.log('res.body', res.body)
+    const blogsAfterOperation = await blogsInDb()
+    console.log('blogsAfterOperation', blogsAfterOperation)
+    expect(blogsAfterOperation.length).toBe(blogsAtStart.length + 0)
+ //   expect(res.body.likes).toBe(0)
+  })
 })
 
+afterAll(() => {
+    server.close()
+})
+
+
+// ----------------------------------------------------------------
     /*
 describe.only('fetch blogs from blogs-database', async () => {
 
@@ -267,6 +295,3 @@ describe('when there is initially some blogs saved', async () => {
 })
 
 */
-afterAll(() => {
-    server.close()
-})

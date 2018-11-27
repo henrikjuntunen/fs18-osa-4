@@ -12,12 +12,25 @@ blogsRouter.get('/', (request, response) => {
 blogsRouter.post('/', (request, response) => {
     const blog = new Blog(request.body)
     
+    if (blog.title === undefined) {
+          //      console.log('request.body', request.body)
+        return response.status(400).json({error: 'title missing'})
+    }
+    if (blog.author === undefined) {
+        //      console.log('request.body', request.body)
+        return response.status(400).json({error: 'author missing'})
+    }
+
+    if (blog.url === undefined) {
+    //      console.log('request.body', request.body)
+        return response.status(400).json({error: 'url missing'})
+    }
+
     if (blog.likes === undefined) {
         const blogx = new Blog ({ title: blog.title,
         author: blog.author,
         url: blog.url,
         likes: 0 })
-
         blogx
         .save()
         .then(result => {
@@ -27,9 +40,6 @@ blogsRouter.post('/', (request, response) => {
           //      console.log('request.body', request.body)
     //     return response.status(400).json({error: 'likes missing'})
     } else {
-
-        
-        
         blog
         .save()
         .then(result => {
