@@ -32,7 +32,7 @@ const mongoUrl = process.env.MONGODB_URI
 
 mongoose.connect(mongoUrl)
 .then( () => {
-    console.log('connected to database', mongoUrl)
+    console.log('connected to database')
 })
 .catch( err => {
     console.log('err', err)
@@ -149,5 +149,16 @@ async/awaitia.
 The Promise object represents the eventual completion (or failure) of an 
 asynchronous operation, and its resulting value.
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+
+4.9 blogilistan testit, osa 2
+Tee testit blogin lisäämiselle, eli osoitteeseen /api/blogs tapahtuvalle 
+HTTP POST -pyynnölle.
+Kun testi on valmis, refaktoroi operaatio käyttämään promisejen sijaan 
+async/awaitia.
+
+4.10* blogilistan testit, osa 3
+Tee testi joka varmistaa, että jos kentälle likes ei anneta arvoa, 
+asetetaan sen arvoksi 0. Muiden kenttien sisällöstä ei tässä tehtävässä 
+vielä välitetä. Laajenna ohjelmaa siten, että testi menee läpi.
 
 */
