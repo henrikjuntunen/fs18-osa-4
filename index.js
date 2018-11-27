@@ -166,4 +166,10 @@ Tee testit blogin lisäämiselle, eli osoitteeseen /api/blogs tapahtuvalle
 HTTP POST -pyynnölle, joka varmistaa, että jos uusi blogi ei sisällä kenttiä title ja url, pyyntöön vastataan statuskoodilla 400 Bad request
 Laajenna toteutusta siten, että testit menevät läpi.
 
+4.12* blogilistan laajennus, osa 1
+Refaktoroi projektin testit siten, että ne eivät enää ole riippuvaisia siitä, 
+että HTTP GET -operaatioiden testit suoritetaan ennen uusien blogien lisäämisen 
+testaamista. Määrittele myös sopivia apumetodeja, joiden avulla saat poistettua 
+testeistä copypastea.
+
 */
