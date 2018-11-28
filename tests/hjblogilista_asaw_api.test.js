@@ -261,22 +261,46 @@ describe('(d) update blogs to blogs-database', () => {
   }
   console.log('updateBlog', updateBlog)
   const blogsBeforeOperation = await blogsInDb()
-  consile.log('blogsBeforeOperation', blogsBeforeOperation)
+  console.log('blogsBeforeOperation', blogsBeforeOperation)
+  /* await api
+  .put('/api/blogs/5bfe57f1e00aad343558650f')
+  .send(updateBlog)
+  .expect(200) */
   await api
-  .put(`/api/blogs/${addedBlog._id}, ${updateBlog}`)
+  .put(`/api/blogs/${blogsBeforeOperation[2]._id}`)
+  .send(updateBlog)
   .expect(200)
-
+  
   const blogsAfterOperation = await blogsInDb()
-  consile.log('blogsAfterOperation', blogsAfterOperation)
+  console.log('blogsAfterOperation', blogsAfterOperation)
   const titles = blogsAfterOperation.map(r => r.title)
 
   expect(titles).toContain(updateBlog.title)
-  expect(blogsAfterOperation.length).toBe(blogsAtStart.length)
+  expect(blogsAfterOperation.length).toBe(blogsAfterOperation.length)
   })
 })
 
+api.post
 afterAll(() => {
   console.log('(99) after all in hjblogilista')
     server.close()
 })
+/*
+PASS  tests/hjblogilista_asaw_api.test.js (14.883s)
+(a) fetch blogs from blogs-database
+  ✓ (1) all blogs are returned with find({}) (65ms)
+  ✓ (2) blogs are returned as json (139ms)
+  ✓ (3) all two blogs are returned (62ms)
+(b) insert new blogs to blogs-database
+  ✓ (1) POST /api/blogs succeeds with valid data (243ms)
+  ✓ (2) POST /api/blogs succeeds with valid data (2) (57ms)
+  ✓ (3) POST /api/blogs likes defaults to 0 if missing (204ms)
+  ✓ (4) POST /api/blogs missing fields (tittle) (128ms)
+  ✓ (5) POST /api/blogs missing fields (author) (139ms)
+  ✓ (6) POST /api/blogs missing fields (url) (131ms)
+(c) insert new blogs to blogs-database
+  ✓ (1) DELETE /api/notes/:id succeeds with proper statuscode (181ms)
+(d) update blogs to blogs-database
+  ✓ (1) PUT /api/notes/:id {} succeeds with proper statuscode (178ms)
+  */
 /* */ 
