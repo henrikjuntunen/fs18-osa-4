@@ -250,24 +250,27 @@ describe('(c) insert new blogs to blogs-database', () => {
 })
 
 describe('(d) update blogs to blogs-database', () => {
-  // PUT
+
+  test('(1) PUT /api/notes/:id {} succeeds with proper statuscode', async () => {
+    // PUT
   const updateBlog = {
     "title": "Type wars yellow",
     "author": "Robert C. Martin",
     "url": "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
     "likes": 44
   }
-  const blogsAtStart = await blogsInDb()
   console.log('updateBlog', updateBlog)
+  const blogsBeforeOperation = await blogsInDb()
+  consile.log('blogsBeforeOperation', blogsBeforeOperation)
   await api
   .put(`/api/blogs/${addedBlog._id}, ${updateBlog}`)
   .expect(200)
 
   const blogsAfterOperation = await blogsInDb()
-
+  consile.log('blogsAfterOperation', blogsAfterOperation)
   const titles = blogsAfterOperation.map(r => r.title)
 
-  expect(titles).not.toContain(updateBlog.title)
+  expect(titles).toContain(updateBlog.title)
   expect(blogsAfterOperation.length).toBe(blogsAtStart.length)
 })
 
