@@ -2,7 +2,7 @@ POST http://localhost:3003/api/blogs
 content-type: application/json
 
 {
-  "title": "Suomen X luonnonsuojeluliitto",
-  "author": "Suomen X luonnonsuojeluliiton keskustoimisto",
+  "title": "Suomen E luonnonsuojeluliitto",
+  "author": "Suomen E luonnonsuojeluliiton keskustoimisto",
   "url": "https://www.sll.fi/arkisto/ajankohtaista"
 }

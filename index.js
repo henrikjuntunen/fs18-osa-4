@@ -210,5 +210,19 @@ Tee testit, jotka varmistavat, että virheellisiä käyttäjiä ei
 luoda, ja että virheellisen käyttäjän luomisoperaatioon vastaus 
 on järkevä statuskoodin ja virheilmoituksen osalta.
 
+4.17 blogilistan laajennus, osa 6
+Laajenna blogia siten, että blogiin tulee tieto sen lisänneestä 
+käyttäjästä.
+Muokkaa blogien lisäystä osan 4 luvun populate tapaan siten, että 
+blogin lisäämisen yhteydessä määritellään blogin lisääjäksi joku 
+järjestelmän tietokannassa olevista käyttäjistä (esim. ensimmäisenä 
+löytyvä). Tässä vaiheessa ei ole väliä kuka käyttäjistä määritellään 
+lisääväksi. Toiminnallisuus viimeistellään tehtävässä 4.19.
+Muokkaa kaikkien blogien listausta siten, että blogien yhteydessä 
+näytetään lisääjän tiedot:
+ja käyttäjien listausta siten että käyttäjien lisäämät blogit ovat 
+näkyvillä
+
+
 
 */

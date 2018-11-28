@@ -47,11 +47,16 @@ usersRouter.post('/', async (request, response) => {
             return response.status(400).json({error: 'invalid username given'})        
         } else {
             console.log('xxxc success')
+            body.blogs = [
+                "5bfe95be80d954382d2c90e3",
+                "5bfe95be80d954382d2c90e3"
+            ]
             const user = new User({
                 username: body.username,
                 name: body.name,
                 adult: body.adult,
-                passwordHash
+                passwordHash,
+                blogs: body.blogs
             })
             const savedUser = await user.save()
             response.json(savedUser)
@@ -75,7 +80,8 @@ usersRouter.get('/:id', async (request, response) => {
       const user = await User.findById(request.params.id)
   
       if (user) {
-        response.json(formatUser(user))
+          response.json(User.format(user))
+        // response.json(formatUser(user))
         // response.json(user)
       } else {
         response.status(404).end()
@@ -96,6 +102,8 @@ usersRouter.get('/', async (request, response) => {
                             likes:1 })  
   
     // response.json(users)
+    // response.json(users.map(user => {User.format(user)}))
+
     response.json(users.map(User.format))
 })
 

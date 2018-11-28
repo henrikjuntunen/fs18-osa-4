@@ -21,6 +21,9 @@ blogsRouter.post('/', (request, response) => {
     if (blog.likes === undefined) {
         blog.likes = 0
     }
+
+    blog.user = "5bfeb54a7de9393a75f2336a"
+    blog.user = "5bfeb54a7de9393a75f2336b"
         /*
     if (blog.likes === undefined) {
         const blogx = new Blog ({ title: blog.title,
@@ -49,7 +52,10 @@ blogsRouter.post('/', (request, response) => {
        .then(result => {
            response.status(201).json(result)
        })
-
+       .catch(error => {
+        console.log(error)
+        response.status(400).send({ error: 'addition of blog failed' })
+        })
     })
     /*
 blogsRouter.get('/', (request, response) => {
