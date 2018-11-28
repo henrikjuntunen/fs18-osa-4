@@ -5,6 +5,7 @@ const User = require('../models/user')
 usersRouter.post('/', async (request, response) => {
   try {
     const body = request.body
+    console.log('body', body)
 
     if (body.username === undefined) {
         return response.status(400).json({error: 'username is missing'})
@@ -16,20 +17,45 @@ usersRouter.post('/', async (request, response) => {
         body.adult = true
         // return response.status(400).json({error: 'adult info is missing'})
     }
+    if (body.password === undefined) {
+        return response.status(400).json({error: 'password is invalid (1)'})
+    }
+    if (body.password.length < 3) {
+        return response.status(400).json({error: 'password is invalid (2)'})
+    }
 
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(body.password, saltRounds)
 
-    const user = new User({
-      username: body.username,
-      name: body.name,
-      adult: body.adult,
-      passwordHash
-    })
+    const usersBeforeOperation = await usersInDb()
+    console.log('usersBeforeOperation', usersBeforeOperation)
+    const usernames = usersBeforeOperation.map(u=>u.username===body.username)
+    console.log('usernames', usernames)
+    let loytyi = usernames.find(e => {e === true}) // TODO miten find toimii ?
+    // loytyi = usernames.find(e => {console.log('e', e)}) // TODO miten find toimii ?
+    console.log('loytyi1', loytyi)
+    for (let i=0;i<usernames.length;i++){
+        if (usernames[i]===true){
+            loytyi=true
+            break
+        }
+    }
+    console.log('loytyi2', loytyi)
 
-    const savedUser = await user.save()
-
-    response.json(savedUser)
+        if (loytyi === true){
+            console.log('xxxc virhe')
+            return response.status(400).json({error: 'invalid username given'})        
+        } else {
+            console.log('xxxc success')
+            const user = new User({
+                username: body.username,
+                name: body.name,
+                adult: body.adult,
+                passwordHash
+            })
+            const savedUser = await user.save()
+            response.json(savedUser)
+        }
   } catch (exception) {
     console.log(exception)
     response.status(500).json({ error: '... something went wrong with users ...' })
@@ -43,5 +69,10 @@ usersRouter.get('/', (request, response) => {
         response.json(users)
     })
 })
+
+const usersInDb = async () => {
+  const users = await User.find({})
+  return users
+}
 
 module.exports = usersRouter
