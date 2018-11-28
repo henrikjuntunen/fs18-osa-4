@@ -24,7 +24,7 @@ axios.get('http://example.com/probably_will_fail')
 
 
 
-describe.skip('pro fetch blogs from blogs-database', () => {
+describe('pro fetch blogs from blogs-database', () => {
   test('(1)  blogs are returned as json 404', () => {
     //   console.log('uri', process.env.MONGODB_URI)
       // const blogsInDatabase = blogsInDb()
@@ -34,8 +34,8 @@ describe.skip('pro fetch blogs from blogs-database', () => {
    const result = api
    .get('/api/blogsx') 
    .then(result => {
-        expect('status', 404)
-        expect('Content-Type', /application\/json/)
+        expect(404)
+        expect('Content-Type: application/json')
       })
    .catch(result => {console.log('result', result)})
 /*
@@ -107,8 +107,9 @@ describe.skip('pro fetch blogs from blogs-database', () => {
    const result = api
     .get('/api/blogs') 
     .then(result => {
-      expect('status', 200)
-      expect('Content-Type', /application\/json/)
+      expect(200)
+      expect('Content-Type: application/json')
+      //expect('Content-Type', /application\/json/)
     })
     .catch(result => {console.log('result', result)})
   })
@@ -117,7 +118,7 @@ describe.skip('pro fetch blogs from blogs-database', () => {
 
 describe('pro insert new blogs to blogs-database', () => {
 
-  test.skip('POST /api/blogs succeeds with valid data', async () => {
+  test('(1) POST /api/blogs succeeds with valid data', async () => {
     const blogsAtStart = await blogsInDb()
 
     /*
@@ -156,6 +157,7 @@ describe('pro insert new blogs to blogs-database', () => {
     expect(blogsAfterOperation.length).toBe(blogsAtStart.length + 1)
   })
   
+  /*
   test('POST /api/blogs succeeds with valid data (2)', () => {
     const promise1 = 
     blogsInDb()
@@ -166,7 +168,7 @@ describe('pro insert new blogs to blogs-database', () => {
     })
     .catch(e => {console.log('post failed', e)})
   })
-
+*/
 
 })
 
