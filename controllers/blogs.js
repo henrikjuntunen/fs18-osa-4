@@ -17,7 +17,11 @@ blogsRouter.post('/', (request, response) => {
         //      console.log('request.body', request.body)
         return response.status(400).json({error: 'url missing'})
     }
-    
+
+    if (blog.likes === undefined) {
+        blog.likes = 0
+    }
+        /*
     if (blog.likes === undefined) {
         const blogx = new Blog ({ title: blog.title,
             author: blog.author,
@@ -38,6 +42,14 @@ blogsRouter.post('/', (request, response) => {
                 response.status(201).json(result)
             })
         }
+        */
+
+       blog
+       .save()
+       .then(result => {
+           response.status(201).json(result)
+       })
+
     })
     
 blogsRouter.get('/', (request, response) => {

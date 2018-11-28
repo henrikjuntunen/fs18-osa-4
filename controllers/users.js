@@ -6,12 +6,24 @@ usersRouter.post('/', async (request, response) => {
   try {
     const body = request.body
 
+    if (body.username === undefined) {
+        return response.status(400).json({error: 'username is missing'})
+    }
+    if (body.name === undefined) {
+        return response.status(400).json({error: 'name is missing'})
+    }
+    if (body.adult === undefined) {
+        body.adult = true
+        // return response.status(400).json({error: 'adult info is missing'})
+    }
+
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(body.password, saltRounds)
 
     const user = new User({
       username: body.username,
       name: body.name,
+      adult: body.adult,
       passwordHash
     })
 
