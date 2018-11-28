@@ -179,4 +179,14 @@ RESTful-käytänteitä.
 Saat toteuttaa ominaisuudelle testit jos haluat. Jos et, varmista 
 ominaisuuden toimivuus esim. Postmanilla.
 
+4.14* blogilistan laajennus, osa 3
+Toteuta sovellukseen mahdollisuus yksittäisen blogin muokkaamiseen.
+Käytä async/awaitia.
+Tarvitsemme muokkausta lähinnä likejen lukumäärän päivittämiseen. 
+Toiminnallisuuden voi toteuttaa samaan tapaan kuin muistiinpanon 
+päivittäminen toteutettiin osassa 3.
+Saat toteuttaa ominaisuudelle testit jos haluat. Jos et, varmista 
+ominaisuuden toimivuus esim. Postmanilla.
+
+
 */
