@@ -272,6 +272,7 @@ describe('(d) update blogs to blogs-database', () => {
 
   expect(titles).toContain(updateBlog.title)
   expect(blogsAfterOperation.length).toBe(blogsAtStart.length)
+  })
 })
 
 afterAll(() => {
