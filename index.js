@@ -24,7 +24,7 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(middleware.logger)
 app.use('/api/blogs', blogsRouter)
-//app.use('/api/users', usersRouter)
+app.use('/api/users', usersRouter)
 app.use(middleware.error)
 
 // const mongoUrl = 'mongodb://localhost/bloglist'
