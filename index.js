@@ -191,5 +191,24 @@ päivittäminen toteutettiin osassa 3.
 Saat toteuttaa ominaisuudelle testit jos haluat. Jos et, varmista 
 ominaisuuden toimivuus esim. Postmanilla.
 
+4.15 blogilistan laajennus, osa 4
+Tee sovellukseen mahdollisuus luoda käyttäjiä tekemällä 
+HTTP POST -pyyntö osoitteeseen api/users. Käyttäjillä on 
+käyttäjätunnus, salasana ja nimi sekä totuusarvoinen kenttä, 
+joka kertoo onko käyttäjä täysi-ikäinen.
+Älä talleta tietokantaan salasanoja selväkielisenä vaan käytä 
+osan 4 luvun Käyttäjien luominen tapaan bcrypt-kirjastoa.
+
+4.16* blogilistan laajennus, osa 5
+Laajenna käyttäjätunnusten luomista siten, että salasanan tulee 
+olla vähintään 3 merkkiä pitkä ja käyttäjätunnus on järjestelmässä 
+uniikki. Jos täysi-ikäisyydelle ei määritellä luotaessa arvoa, 
+on se oletusarvoisesti true.
+Luomisoperaation tulee palauttaa sopiva statuskoodi ja kuvaava 
+virheilmoitus, jos yritetään luoda epävalidi käyttäjä.
+Tee testit, jotka varmistavat, että virheellisiä käyttäjiä ei 
+luoda, ja että virheellisen käyttäjän luomisoperaatioon vastaus 
+on järkevä statuskoodin ja virheilmoituksen osalta.
+
 
 */

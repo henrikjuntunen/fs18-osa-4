@@ -55,5 +55,69 @@ describe('(a) when there is initially one user at db', async () => {
     //console.log('result', result)
   })
 
+})
+
+describe('(b) password', async () => {
+
+  test('(1) POST /api/users passwordme', async () => {
+
+    const newUser = {
+      username: 'mluukkai1',
+      name: 'Matti Luukkainen',
+      password: 'sa'
+    }
+
+    const response = await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('Content-Type', /application\/json/)
+
+      console.log('response.error', response.error)
+      console.log('response.error.text', response.error.text)
+ 
+      // expect(response.error).toBe("password is invalid (2)")
+      // expect(response.error).toBe(Object {"Error": "cannot POST /api/users (400)"})
+  //    const oo = {"error":"password is invalid (2)"}
+      const oo = {error: 'password is invalid (2)'}
+  //    expect(response.error).toBe('cannot POST /api/users (400)')
+  //  Comparing two different types of values. Expected string but received object.
+
+   // expect(response.error.text).toEqual(oo)
+
+ expect(response.error.text).toEqual('{"error":"password is invalid (2)"}')
+      /*   {
+        "error": "password is invalid (2)"
+      } */
+  })
+
+  test('(2) POST /api/users passwordme', async () => {
+
+    const newUser = {
+      username: 'mluukkai1',
+      name: 'Matti Luukkainen'
+    }
+
+    const response = await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('Content-Type', /application\/json/)
+   
+      const o =   {
+          "Error": "cannot POST /api/users (400)"
+        }
+        const oo = {error: "password is invalid (1)"}
+      console.log('response.error', response.error)
+      console.log('response.error.text', response.error.text)
+  //     expect(response.error).toBe("password is invalid (1)")
+ // expect(response.error).toBe(Object {"Error": "cannot POST /api/users (400)"})
+ // expect(response.error.text).toEqual(oo)
+ expect(response.error.text).toEqual('{"error":"password is invalid (1)"}')
+ // expect(response.error.text).toBe(oo)
+   /*   {
+        "error": "password is invalid (2)"
+      } */
+  })
 
 })
