@@ -51,15 +51,42 @@ blogsRouter.post('/', (request, response) => {
        })
 
     })
-    
+    /*
 blogsRouter.get('/', (request, response) => {
         Blog
         .find({})
         .then(blogs => {
             response.json(blogs)
         })
+})*/
+
+blogsRouter.get('/:id', async (request, response) => {
+    try {
+      const blog = await Blog.findById(request.params.id)
+  
+      if (blog) {
+        response.json(formatBlog(blog))
+        //response.json(blog)
+      } else {
+        response.status(404).end()
+      }
+  
+    } catch (exception) {
+      console.log(exception)
+      response.status(400).send({ error: 'malformatted id' })
+    }
 })
-      
+
+blogsRouter.get('/', async (request, response) => {
+    const blogs = await Blog
+      .find({})
+      .populate('user', { username: 1, name: 1 } )
+  
+      // response.json(blogs)
+      response.json(blogs.map(Blog.format))
+})
+
+
     /*
     blogsRouter.post('/', (request, response) => {
         // const blog = new Blog(request.body)

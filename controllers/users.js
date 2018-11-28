@@ -41,7 +41,7 @@ usersRouter.post('/', async (request, response) => {
         }
     }
     console.log('loytyi2', loytyi)
-
+    // TODO tässä yllä olisi mahdollista käyttää reduce metodia
         if (loytyi === true){
             console.log('xxxc virhe')
             return response.status(400).json({error: 'invalid username given'})        
@@ -61,13 +61,42 @@ usersRouter.post('/', async (request, response) => {
     response.status(500).json({ error: '... something went wrong with users ...' })
   }
 })
-
+/*
 usersRouter.get('/', (request, response) => {
     User
     .find({})
     .then(users => {
         response.json(users)
     })
+})*/
+
+usersRouter.get('/:id', async (request, response) => {
+    try {
+      const user = await User.findById(request.params.id)
+  
+      if (user) {
+        response.json(formatUser(user))
+        // response.json(user)
+      } else {
+        response.status(404).end()
+      }
+  
+    } catch (exception) {
+      console.log(exception)
+      response.status(400).send({ error: 'malformatted id' })
+    }
+})
+
+usersRouter.get('/', async (request, response) => {
+    const users = await User
+      .find({})
+      .populate('blogs', {  title: 1,
+                            author: 1,
+                            url: 1,
+                            likes:1 })  
+  
+    // response.json(users)
+    response.json(users.map(User.format))
 })
 
 const usersInDb = async () => {
