@@ -7,6 +7,7 @@ const mongoose = require('mongoose')
 const middleware = require('./utils/middleware')
 const blogsRouter = require('./controllers/blogs')
 const usersRouter = require('./controllers/users')
+const loginRouter = require('./controllers/login')
 
 // const Blog = require('./models/blog.js')
 /*
@@ -25,6 +26,7 @@ app.use(bodyParser.json())
 app.use(middleware.logger)
 app.use('/api/blogs', blogsRouter)
 app.use('/api/users', usersRouter)
+app.use('/api/login', loginRouter)
 app.use(middleware.error)
 
 // const mongoUrl = 'mongodb://localhost/bloglist'
@@ -223,6 +225,9 @@ näytetään lisääjän tiedot:
 ja käyttäjien listausta siten että käyttäjien lisäämät blogit ovat 
 näkyvillä
 
+4.18 blogilistan laajennus, osa 7
+Toteuta osan 4 luvun Kirjautuminen tapaan järjestelmään token-perustainen 
+autentikointi.
 
 
 */
