@@ -27,7 +27,8 @@ const initialBlogs = [
   {
     "title": "Type wars black",
     "author": "Robert C. Martin",
-    "url": "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html"
+    "url": "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
+    "likes": 0
   },
   {
     "author": "Robert C. Martin",
@@ -51,21 +52,26 @@ const initialBlogs = [
 
 beforeAll(async () => {
   console.log('(0) before all tests of hjblogilista')
-
+  
   await Blog.remove({})
-
+  
   let blogObject = new Blog(initialBlogs[0])
   await blogObject.save()
-
+  
   blogObject = new Blog(initialBlogs[1])
   await blogObject.save()
+
+  addedBlog = new Blog(initialBlogs[2])
+  await addedBlog.save()
 })
+
+// TODO save ja post ovat eri asia
 
 describe('(a) fetch blogs from blogs-database', () => {
 
   test('(1) all blogs are returned with find({})', async () => {
     const blogsInDatabase = await blogsInDb()
-    expect(blogsInDatabase.length).toBe(2)
+    expect(blogsInDatabase.length).toBe(3)
   })
 
   test('(2) blogs are returned as json', async () => {
@@ -80,12 +86,12 @@ describe('(a) fetch blogs from blogs-database', () => {
       const response = await api
       .get('/api/blogs')
 
-      expect(response.body.length).toBe(2)
+      expect(response.body.length).toBe(3)
   })
 
 })
 
-describe('(b) insert new blogs to blogs-database', () => {
+describe.skip('(b) insert new blogs to blogs-database', () => {
 
   test('(1) POST /api/blogs succeeds with valid data', async () => {
     const blogsAtStart = await blogsInDb()
@@ -224,14 +230,10 @@ describe('(b) insert new blogs to blogs-database', () => {
 
 })
 
-describe('(c) insert new blogs to blogs-database', () => {
+describe.skip('(c) insert new blogs to blogs-database', () => {
 
   let addedBlog
   
-  beforeAll(async () => {
-    addedBlog = new Blog(initialBlogs[2])
-    await addedBlog.save()
-  })
 
   test('(1) DELETE /api/notes/:id succeeds with proper statuscode', async () => {
     const blogsAtStart = await blogsInDb()
@@ -249,7 +251,7 @@ describe('(c) insert new blogs to blogs-database', () => {
   })
 })
 
-describe('(d) update blogs to blogs-database', () => {
+describe.skip('(d) update blogs to blogs-database', () => {
 
   test('(1) PUT /api/notes/:id {} succeeds with proper statuscode', async () => {
     // PUT
@@ -280,7 +282,7 @@ describe('(d) update blogs to blogs-database', () => {
   })
 })
 
-api.post
+//api.post
 afterAll(() => {
   console.log('(99) after all in hjblogilista')
     server.close()

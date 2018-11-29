@@ -24,10 +24,12 @@ const Blog2 = mongoose.model('Blog', {
 app.use(cors())
 app.use(bodyParser.json())
 app.use(middleware.logger)
+app.use(middleware.tokenExtractor)
 app.use('/api/blogs', blogsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 app.use(middleware.error)
+
 
 // const mongoUrl = 'mongodb://localhost/bloglist'
 if (process.env.NODE_ENV !== 'production') {
@@ -219,15 +221,15 @@ Muokkaa blogien lisäystä osan 4 luvun populate tapaan siten, että
 blogin lisäämisen yhteydessä määritellään blogin lisääjäksi joku 
 järjestelmän tietokannassa olevista käyttäjistä (esim. ensimmäisenä 
 löytyvä). Tässä vaiheessa ei ole väliä kuka käyttäjistä määritellään 
-lisääväksi. Toiminnallisuus viimeistellään tehtävässä 4.19.
-Muokkaa kaikkien blogien listausta siten, että blogien yhteydessä 
-näytetään lisääjän tiedot:
-ja käyttäjien listausta siten että käyttäjien lisäämät blogit ovat 
-näkyvillä
+lisääväksi. Toiminnallisuus viimeistellään tehtävässä 
 
 4.18 blogilistan laajennus, osa 7
 Toteuta osan 4 luvun Kirjautuminen tapaan järjestelmään token-perustainen 
 autentikointi.
 
+4.19 blogilistan laajennus, osa 8
+Muuta blogien lisäämistä siten, että se on mahdollista vain, jos lisäyksen 
+tekevässä HTTP POST -pyynnössä on mukana validi token. Tokenin haltija 
+määritellään blogin lisääjäksi.
 
 */
