@@ -3,8 +3,8 @@ content-type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhlbnJpayIsImlkIjoiNWJmZmExNWQ0YzY0MWEzZGJiMmE1NzNkIiwiaWF0IjoxNTQzNDkzNTQ4fQ.kbGbAyKUBFgRg0Re-A4-sNWO44JalFxjjsgyrNwZQmk
 
 {
-  "title": "A metsäkeskus",
-  "author": "A Suomen metsäkeskus",
+  "title": "AB metsäkeskus",
+  "author": "AB Suomen metsäkeskus",
   "url": "https://www.metsakeskus.fi/blogi",
-  "likes": 7
+  "likes": 74
 }
