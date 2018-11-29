@@ -10,7 +10,6 @@ const Blog = require('../models/blog.js')
 // 201 = Created
 // 400 = missing
 
-
 beforeAll(async () => {
   console.log('(0) before all tests of hjblogilista')
   
