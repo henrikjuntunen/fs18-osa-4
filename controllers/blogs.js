@@ -11,6 +11,8 @@ const getTokenFrom = (request) => {
     return null
 }
 
+// CRUD
+
 blogsRouter.post('/', async (request, response) => {
     const blog = new Blog(request.body)
     
@@ -64,8 +66,8 @@ blogsRouter.post('/', async (request, response) => {
             const user = await User.findById(decodedToken.id)
             blog.user = user._id
 
-        console.log('blog (1)', blog)
-        console.log('user (1)', user)
+       // console.log('blog (1)', blog)
+       // console.log('user (1)', user)
         /*    const note = new Note({
               content: body.content,
               important: body.important === undefined ? false : body.important,
@@ -77,8 +79,8 @@ blogsRouter.post('/', async (request, response) => {
         
             user.blogs = user.blogs.concat(savedBlog._id)
             await user.save()
-            console.log('blog (2)', blog)
-            console.log('user (2)', user)
+        //    console.log('blog (2)', blog)
+        //    console.log('user (2)', user)
             
             response.json(Blog.format(blog))
           } catch(exception) {
@@ -86,7 +88,7 @@ blogsRouter.post('/', async (request, response) => {
               response.status(401).json({ error: exception.message })
             } else {
               console.log(exception)
-              response.status(500).json({ error: 'something went wrong in blog.save() request ...' })
+              response.status(500).json({ error: 'something went wrong in blog create' })
             }
         }
 
@@ -161,18 +163,69 @@ blogsRouter.put('/:id', (request, response) => {
         })
 })
     
-blogsRouter.delete('/:id', (request, response) => {
-     Blog
-       .findByIdAndRemove(request.params.id)
-       .then(result => {
-         console.log(result)
-         response.status(204).end()
-       })
-       .catch(error => {
-         response.status(400).send({ error: 'malformatted id' })
-         console.log('error', error)
-       })
+blogsRouter.delete('/:id', async (request, response) => {
+    
+    // Tarkastetaan token
+    // Haetaan tokenin avulla user
+    // Haetaan poistettava requestin idn mukainen blog
+    // Verrataan onko blogin user sama kuin toikenilla löydetty user id
+    // Jos user (token-id ja blog-user) on sama niin tehdään poistamistoimenpide
+    // Jos user (token-id ja blog-user) on eri niin tehdään authorization fail toimenpide
+    // return resonse toiminnolla tullaa ulos deletestä
+    
+    let decodedToken = null
+
+    try {
+        decodedToken = jwt.verify(request.token, process.env.SECRET)
+        if (!request.token || !decodedToken.id) {
+            return response.status(401).json({ error: 'token missing or invalid' })
+        }
+    } catch(exception) {
+        if (exception.name === 'JsonWebTokenError' ) {
+            return response.status(401).json({ error: exception.message })
+        } else {
+            console.log(exception)
+            return response.status(500).json({ error: 'something (1) went wrong in blog delete' })
+        }
+    }
+
+    if (decodedToken !== null) {
+        const user = await User.findById(decodedToken.id)
+        console.log('user', user)
+        try {
+            const blog = await Blog.findById(request.params.id)
+            console.log('blog', blog)
+            try {
+                if (user._id.toString() === blog.user.toString()) {
+                    try {
+                        const result = await Blog.findByIdAndRemove(request.params.id)
+                        console.log(result)
+                        response.status(204).end()
+                    }
+                    catch(error) {
+                        console.log('error', error)
+                        response.status(400).send({ error: 'something (4) went wrong in blog delete' })
+                    }
+                } else {
+                    response.status(403)
+                    .json({ error: 'not you blog error or something (3) went wrong in blog delete' })
+                }
+            }
+            catch(error) {
+                console.log(error)
+                response.status(404).send({ error: 'blog not found or something (2) went wrong in blog delete' })
+            }
+        }
+        catch(error) {
+            console.log(error)
+            response.status(400).send({ error: 'invalid id or something (5) went wrong in blog delete' })
+        }
+}
+        
 })
-    
-    
+   
+// HTTP/1.1 400 Bad Request
+// HTTP/1.1 500 Internal Server Error
+// www.w3.org http error codes list
+
 module.exports = blogsRouter

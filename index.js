@@ -232,4 +232,18 @@ Muuta blogien lisäämistä siten, että se on mahdollista vain, jos lisäyksen
 tekevässä HTTP POST -pyynnössä on mukana validi token. Tokenin haltija 
 määritellään blogin lisääjäksi.
 
+4.20* blogilistan laajennus, osa 9
+Osan 4 esimerkissä token otetaan headereista apufunktion getTokenFrom avulla.
+Jos käytit samaa ratkaisua, refaktoroi tokenin erottaminen middlewareksi, 
+joka ottaa tokenin Authorization-headerista ja sijoittaa sen request-olion 
+kenttään token. Eli kun rekisteröit middlewaren ennen routeja tiedostossa 
+index.js
+
+4.21* blogilistan laajennus, osa 10
+Muuta blogin poistavaa operaatiota siten, että poisto onnistuu ainoastaan jos 
+poisto-operaation tekijä (eli se kenen token on pyynnön mukana) on sama 
+kuin blogin lisääjä.
+Jos poistoa yritetään ilman tokenia tai väärän käyttäjän toimesta, tulee 
+operaation palauttaa asiaan kuuluva statuskoodi.
+
 */

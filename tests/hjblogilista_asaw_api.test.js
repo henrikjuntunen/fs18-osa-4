@@ -52,7 +52,7 @@ const initialBlogs = [
 
 beforeAll(async () => {
   console.log('(0) before all tests of hjblogilista')
-  
+  /*
   await Blog.remove({})
   
   let blogObject = new Blog(initialBlogs[0])
@@ -63,35 +63,14 @@ beforeAll(async () => {
 
   addedBlog = new Blog(initialBlogs[2])
   await addedBlog.save()
+  */
 })
 
 // TODO save ja post ovat eri asia
+// CRUD
 
-describe('(a) fetch blogs from blogs-database', () => {
-
-  test('(1) all blogs are returned with find({})', async () => {
-    const blogsInDatabase = await blogsInDb()
-    expect(blogsInDatabase.length).toBe(3)
-  })
-
-  test('(2) blogs are returned as json', async () => {
-    const result = await api
-    .get('/api/blogs') 
-    .expect(200)
-    .expect('Content-Type', /application\/json/)
-    //console.log('result', result)
-  })
-
-  test('(3) all two blogs are returned', async () => {
-      const response = await api
-      .get('/api/blogs')
-
-      expect(response.body.length).toBe(3)
-  })
-
-})
-
-describe.skip('(b) insert new blogs to blogs-database', () => {
+describe('(b)C insert new blogs to blogs-database', () => {
+  console.log('C insert new blogs to blogs-database')
 
   test('(1) POST /api/blogs succeeds with valid data', async () => {
     const blogsAtStart = await blogsInDb()
@@ -152,10 +131,10 @@ describe.skip('(b) insert new blogs to blogs-database', () => {
       .send(newBlog)
       .expect(201)
       .expect('Content-Type', /application\/json/)
-    console.log('res', res)
-    console.log('res.body', res.body)
+   // console.log('res', res)
+   // console.log('res.body', res.body)
     const blogsAfterOperation = await blogsInDb()
-    console.log('blogsAfterOperation', blogsAfterOperation)
+   // console.log('blogsAfterOperation', blogsAfterOperation)
     expect(blogsAfterOperation.length).toBe(blogsAtStart.length + 1)
     expect(res.body.likes).toBe(0)
 
@@ -175,10 +154,10 @@ describe.skip('(b) insert new blogs to blogs-database', () => {
       .send(newBlog)
       .expect(400)
       .expect('Content-Type', /application\/json/)
-    console.log('res', res)
-    console.log('res.body', res.body)
+   // console.log('res', res)
+   // console.log('res.body', res.body)
     const blogsAfterOperation = await blogsInDb()
-    console.log('blogsAfterOperation', blogsAfterOperation)
+   // console.log('blogsAfterOperation', blogsAfterOperation)
     expect(blogsAfterOperation.length).toBe(blogsAtStart.length + 0)
  //   expect(res.body.likes).toBe(0)
   })
@@ -197,10 +176,10 @@ describe.skip('(b) insert new blogs to blogs-database', () => {
       .send(newBlog)
       .expect(400)
       .expect('Content-Type', /application\/json/)
-    console.log('res', res)
-    console.log('res.body', res.body)
+  //  console.log('res', res)
+  //  console.log('res.body', res.body)
     const blogsAfterOperation = await blogsInDb()
-    console.log('blogsAfterOperation', blogsAfterOperation)
+  //  console.log('blogsAfterOperation', blogsAfterOperation)
     expect(blogsAfterOperation.length).toBe(blogsAtStart.length + 0)
  //   expect(res.body.likes).toBe(0)
   })
@@ -219,10 +198,10 @@ describe.skip('(b) insert new blogs to blogs-database', () => {
       .send(newBlog)
       .expect(400)
       .expect('Content-Type', /application\/json/)
-    console.log('res', res)
-    console.log('res.body', res.body)
+   // console.log('res', res)
+   // console.log('res.body', res.body)
     const blogsAfterOperation = await blogsInDb()
-    console.log('blogsAfterOperation', blogsAfterOperation)
+   // console.log('blogsAfterOperation', blogsAfterOperation)
     expect(blogsAfterOperation.length).toBe(blogsAtStart.length + 0)
  //   expect(res.body.likes).toBe(0)
   })
@@ -230,14 +209,73 @@ describe.skip('(b) insert new blogs to blogs-database', () => {
 
 })
 
-describe.skip('(c) insert new blogs to blogs-database', () => {
+describe('(a)R fetch blogs from blogs-database', () => {
+  console.log('R fetch blogs from blogs-database')
+
+  test('(1) all blogs are returned with find({})', async () => {
+    const blogsInDatabase = await blogsInDb()
+    expect(blogsInDatabase.length).toBe(9)
+  })
+
+  test('(2) blogs are returned as json', async () => {
+    const result = await api
+    .get('/api/blogs') 
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+    //console.log('result', result)
+  })
+
+  test('(3) all two blogs are returned', async () => {
+      const response = await api
+      .get('/api/blogs')
+
+      expect(response.body.length).toBe(9)
+  })
+
+})
+
+describe('(d)U update blogs in blogs-database', () => {
+console.log('U update blogs in blogs-database')
+
+  test('(1) PUT /api/notes/:id {} succeeds with proper statuscode', async () => {
+    // PUT
+  const updateBlog = {
+    "title": "Type wars yellow",
+    "author": "Robert C. Martin",
+    "url": "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
+    "likes": 44
+  }
+ // console.log('updateBlog', updateBlog)
+  const blogsBeforeOperation = await blogsInDb()
+ // console.log('blogsBeforeOperation', blogsBeforeOperation)
+  /* await api
+  .put('/api/blogs/5bfe57f1e00aad343558650f')
+  .send(updateBlog)
+  .expect(200) */
+  await api
+  .put(`/api/blogs/${blogsBeforeOperation[2]._id}`)
+  .send(updateBlog)
+  .expect(200)
+  
+  const blogsAfterOperation = await blogsInDb()
+ // console.log('blogsAfterOperation', blogsAfterOperation)
+  const titles = blogsAfterOperation.map(r => r.title)
+
+  expect(titles).toContain(updateBlog.title)
+  expect(blogsAfterOperation.length).toBe(blogsAfterOperation.length)
+  })
+})
+
+
+describe('(c)D delete blogs to blogs-database', () => {
+  console.log('D delete blogs to blogs-database')
 
   let addedBlog
   
 
   test('(1) DELETE /api/notes/:id succeeds with proper statuscode', async () => {
     const blogsAtStart = await blogsInDb()
-    console.log('addedBlog', addedBlog)
+  //  console.log('addedBlog', addedBlog)
     await api
     .delete(`/api/blogs/${addedBlog._id}`)
     .expect(204)
@@ -251,36 +289,6 @@ describe.skip('(c) insert new blogs to blogs-database', () => {
   })
 })
 
-describe.skip('(d) update blogs to blogs-database', () => {
-
-  test('(1) PUT /api/notes/:id {} succeeds with proper statuscode', async () => {
-    // PUT
-  const updateBlog = {
-    "title": "Type wars yellow",
-    "author": "Robert C. Martin",
-    "url": "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
-    "likes": 44
-  }
-  console.log('updateBlog', updateBlog)
-  const blogsBeforeOperation = await blogsInDb()
-  console.log('blogsBeforeOperation', blogsBeforeOperation)
-  /* await api
-  .put('/api/blogs/5bfe57f1e00aad343558650f')
-  .send(updateBlog)
-  .expect(200) */
-  await api
-  .put(`/api/blogs/${blogsBeforeOperation[2]._id}`)
-  .send(updateBlog)
-  .expect(200)
-  
-  const blogsAfterOperation = await blogsInDb()
-  console.log('blogsAfterOperation', blogsAfterOperation)
-  const titles = blogsAfterOperation.map(r => r.title)
-
-  expect(titles).toContain(updateBlog.title)
-  expect(blogsAfterOperation.length).toBe(blogsAfterOperation.length)
-  })
-})
 
 //api.post
 afterAll(() => {

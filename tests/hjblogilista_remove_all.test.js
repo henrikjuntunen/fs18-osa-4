@@ -13,7 +13,7 @@ const Blog = require('../models/blog.js')
 beforeAll(async () => {
   console.log('(0) before all tests of hjblogilista')
   
-  await Blog.remove({})
+  // await Blog.remove({})
   
 })
 

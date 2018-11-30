@@ -3,8 +3,8 @@ content-type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1sdXVra2FpIiwiaWQiOiI1YzAwZjYyMWVkMjBiODQyNzQ4OTM3NzQiLCJpYXQiOjE1NDM1Njc1MDJ9.QcqiRY12naT6PU42QGzbwO4kuTsFoHSJN8CpzhR0aOY
 
 {
-  "title": "Russia Travel Blog",
-  "author": "Russia Travel Specialists",
-  "url": "https://www.56thparallel.com/blog/",
+  "title": "metsäkeskus",
+  "author": "Talous-Suomen metsäkeskus",
+  "url": "https://www.metsakeskus.fi/blogi",
   "likes": 12
 }
