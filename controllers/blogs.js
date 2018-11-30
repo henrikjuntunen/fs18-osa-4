@@ -220,7 +220,22 @@ blogsRouter.delete('/:id', async (request, response) => {
             console.log(error)
             response.status(400).send({ error: 'invalid id or something (5) went wrong in blog delete' })
         }
-}
+    }
+
+    /*
+    blogsRouter.delete('/:id', (request, response) => {
+     Blog
+       .findByIdAndRemove(request.params.id)
+       .then(result => {
+         console.log(result)
+         response.status(204).end()
+       })
+       .catch(error => {
+         response.status(400).send({ error: 'malformatted id' })
+         console.log('error', error)
+       })
+    })
+    */
         
 })
    
