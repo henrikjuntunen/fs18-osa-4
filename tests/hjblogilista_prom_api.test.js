@@ -82,16 +82,16 @@ describe('pro fetch blogs from blogs-database', () => {
    api.get('/api/blogs')
    .then(r => {
      expect(1).toBe(1)
-     console.log('hjblogilista test 002 ok r', r)
+ //    console.log('hjblogilista test 002 ok r', r)
     })
     .catch(error => {
       expect(1).toBe(0)
-      console.log('error(2)002', error)
+   //   console.log('error(2)002', error)
     })
 
-     console.log('hjblogilista test 002 b')
+     //console.log('hjblogilista test 002 b')
     // { Error: cannot GET /api/blogsx (404)
-   console.log('promise', promise1)
+   //console.log('promise', promise1)
  })
 
 
@@ -118,7 +118,7 @@ describe('pro fetch blogs from blogs-database', () => {
 
 describe('pro insert new blogs to blogs-database', () => {
 
-  test('(1) POST /api/blogs succeeds with valid data', async () => {
+  test('(1) POST /api/blogs succeeds with valid data only', async () => {
     const blogsAtStart = await blogsInDb()
 
     /*
@@ -138,6 +138,12 @@ describe('pro insert new blogs to blogs-database', () => {
           likes: 2,
           __v: 0
         }  
+
+        Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+        eyJ1c2VybmFtZSI6ImhlbnJpayIsImlkIjoiNWJmZmExNWQ0YzY0MWEzZGJiMmE
+        1NzNkIiwiaWF0IjoxNTQzNDkzNTQ4fQ.kbGbAyKUBFgRg0Re-A4-sNWO44JalFxj
+        jsgyrNwZQmk
+
    */
     const newBlog = {
       title: 'async/await yksinkertaistaa asynkronisten funktioiden kutsua',
@@ -149,12 +155,12 @@ describe('pro insert new blogs to blogs-database', () => {
     await api
       .post('/api/blogs')
       .send(newBlog)
-      .expect(201)
+      .expect(401)
       .expect('Content-Type', /application\/json/)
 
     const blogsAfterOperation = await blogsInDb()
 
-    expect(blogsAfterOperation.length).toBe(blogsAtStart.length + 1)
+    expect(blogsAfterOperation.length).toBe(blogsAtStart.length + 0)
   })
   
   /*

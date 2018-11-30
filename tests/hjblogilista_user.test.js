@@ -8,43 +8,94 @@ const { format, initialNotes, nonExistingId, notesInDb, usersInDb }
 const User = require('../models/user')
 
 describe('(a) when there is initially one user at db', async () => {
+  
   beforeAll(async () => {
-    await User.remove({})
-    const user = new User({ username: 'root', password: 'secret' })
-    await user.save()
+    console.log('(99) before all in users')
+    // await User.remove({})
+   // const user1 = new User({ username: 'root', name: 'root', password: 'secret' })
+   // const user2 = new User({ username: 'henrik', name: 'Henrik Juntunen', password: 'salainen' })
+   // const user3 = new User({ username: 'mluukkai', name: 'Matti Luukkainen', password: 'salattu' })
+   // await user1.save()
+   // await user2.save()
+   // await user3.save()
   })
 
-  test('(1) POST /api/users succeeds with a fresh username', async () => {
+  test('(1.1) POST /api/users succeeds with a fresh username', async () => {
     const usersBeforeOperation = await usersInDb()
 
-    const newUser = {
-      username: 'mluukkai',
-      name: 'Matti Luukkainen',
-      password: 'salainen'
+
+    const newUser1 = {
+      username: 'root',
+      name: 'Root Root',
+      password: 'root'
     }
 
     await api
       .post('/api/users')
-      .send(newUser)
+      .send(newUser1)
       .expect(200)
       .expect('Content-Type', /application\/json/)
 
     const usersAfterOperation = await usersInDb()
     expect(usersAfterOperation.length).toBe(usersBeforeOperation.length+1)
     const usernames = usersAfterOperation.map(u=>u.username)
-    expect(usernames).toContain(newUser.username)
+    expect(usernames).toContain(newUser1.username)
+
+  })
+
+  test('(1.2) POST /api/users succeeds with a fresh username', async () => {
+    const usersBeforeOperation = await usersInDb()
+
+    const newUser2 = {
+      username: 'henrik',
+      name: 'Henrik Juntunen',
+      password: 'salainen'
+    }
+
+    await api
+      .post('/api/users')
+      .send(newUser2)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+
+    const usersAfterOperation = await usersInDb()
+    expect(usersAfterOperation.length).toBe(usersBeforeOperation.length+1)
+    const usernames = usersAfterOperation.map(u=>u.username)
+    expect(usernames).toContain(newUser2.username)
+
+  })
+
+  test('(1.3) POST /api/users succeeds with a fresh username', async () => {
+    const usersBeforeOperation = await usersInDb()
+
+    const newUser3 = {
+      username: 'mluukkai',
+      name: 'Matti Luukkainen',
+      password: 'salattu'
+    }
+
+    await api
+      .post('/api/users')
+      .send(newUser3)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+
+    const usersAfterOperation = await usersInDb()
+    expect(usersAfterOperation.length).toBe(usersBeforeOperation.length+1)
+    const usernames = usersAfterOperation.map(u=>u.username)
+    expect(usernames).toContain(newUser3.username)
   })
 
   test('(2) GET /api/users fetch all users', async () => {
     const response = await api
     .get('/api/users')
 
-    expect(response.body.length).toBe(2)
+    expect(response.body.length).toBe(3)
   })
 
   test('(3) usersInDb() all users are returned with find({})', async () => {
     const usersInDatabase = await usersInDb()
-    expect(usersInDatabase.length).toBe(2)
+    expect(usersInDatabase.length).toBe(3)
   })
 
   test('(4) GET /api/users - users are returned as json', async () => {
@@ -72,23 +123,9 @@ describe('(b) password', async () => {
       .send(newUser)
       .expect(400)
       .expect('Content-Type', /application\/json/)
-
-      console.log('response.error', response.error)
-      console.log('response.error.text', response.error.text)
- 
-      // expect(response.error).toBe("password is invalid (2)")
-      // expect(response.error).toBe(Object {"Error": "cannot POST /api/users (400)"})
-  //    const oo = {"error":"password is invalid (2)"}
-      const oo = {error: 'password is invalid (2)'}
-  //    expect(response.error).toBe('cannot POST /api/users (400)')
-  //  Comparing two different types of values. Expected string but received object.
-
-   // expect(response.error.text).toEqual(oo)
-
- expect(response.error.text).toEqual('{"error":"password is invalid (2)"}')
-      /*   {
-        "error": "password is invalid (2)"
-      } */
+ //     console.log('response.error', response.error)
+ //     console.log('response.error.text', response.error.text)
+    expect(response.error.text).toEqual('{"error":"password is invalid (2)"}')
   })
 
   test('(2) POST /api/users passwordme', async () => {
@@ -108,16 +145,14 @@ describe('(b) password', async () => {
           "Error": "cannot POST /api/users (400)"
         }
         const oo = {error: "password is invalid (1)"}
-      console.log('response.error', response.error)
-      console.log('response.error.text', response.error.text)
-  //     expect(response.error).toBe("password is invalid (1)")
- // expect(response.error).toBe(Object {"Error": "cannot POST /api/users (400)"})
- // expect(response.error.text).toEqual(oo)
- expect(response.error.text).toEqual('{"error":"password is invalid (1)"}')
- // expect(response.error.text).toBe(oo)
-   /*   {
-        "error": "password is invalid (2)"
-      } */
+//      console.log('response.error', response.error)
+//      console.log('response.error.text', response.error.text)
+      expect(response.error.text).toEqual('{"error":"password is invalid (1)"}')
   })
 
+})
+
+afterAll(() => {
+  console.log('(99) after all in users')
+    server.close()
 })

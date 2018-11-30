@@ -1,6 +1,6 @@
 POST http://localhost:3003/api/blogs
 content-type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhlbnJpayIsImlkIjoiNWJmZmExNWQ0YzY0MWEzZGJiMmE1NzNkIiwiaWF0IjoxNTQzNDkzNTQ4fQ.kbGbAyKUBFgRg0Re-A4-sNWO44JalFxjjsgyrNwZQmk
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1sdXVra2FpIiwiaWQiOiI1YzAxM2IwMjMxYTZhYTQ5ZTZhNWM0YzMiLCJpYXQiOjE1NDM2MDI2NDJ9.jo9uYCfC9r5HPzWLg6H5gmgoh6CRAjzVxu_lsQWr7bw
 
 {
   "title": "metsäkeskus",

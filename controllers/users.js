@@ -5,7 +5,7 @@ const User = require('../models/user')
 usersRouter.post('/', async (request, response) => {
   try {
     const body = request.body
-    console.log('body', body)
+    //console.log('body', body)
 
     if (body.username === undefined) {
         return response.status(400).json({error: 'username is missing'})
@@ -28,28 +28,28 @@ usersRouter.post('/', async (request, response) => {
     const passwordHash = await bcrypt.hash(body.password, saltRounds)
 
     const usersBeforeOperation = await usersInDb()
-    console.log('usersBeforeOperation', usersBeforeOperation)
+    //console.log('usersBeforeOperation', usersBeforeOperation)
     const usernames = usersBeforeOperation.map(u=>u.username===body.username)
-    console.log('usernames', usernames)
+    //console.log('usernames', usernames)
     let loytyi = usernames.find(e => {e === true}) // TODO miten find toimii ?
     // loytyi = usernames.find(e => {console.log('e', e)}) // TODO miten find toimii ?
-    console.log('loytyi1', loytyi)
+    //console.log('loytyi1', loytyi)
     for (let i=0;i<usernames.length;i++){
         if (usernames[i]===true){
             loytyi=true
             break
         }
     }
-    console.log('loytyi2', loytyi)
+    //console.log('loytyi2', loytyi)
     // TODO tässä yllä olisi mahdollista käyttää reduce metodia
         if (loytyi === true){
             console.log('xxxc virhe')
             return response.status(400).json({error: 'invalid username given'})        
         } else {
-            console.log('xxxc success')
+    //        console.log('xxxc success')
             body.blogs = [
-                "5bfe95be80d954382d2c90e3",
-                "5bfe95be80d954382d2c90e3"
+   //             "5bfe95be80d954382d2c90e3",
+   //             "5bfe95be80d954382d2c90e3"
             ]
             const user = new User({
                 username: body.username,
@@ -63,7 +63,7 @@ usersRouter.post('/', async (request, response) => {
         }
   } catch (exception) {
     console.log(exception)
-    response.status(500).json({ error: '... something went wrong with users ...' })
+    response.status(500).json({ error: 'user addition error' })
   }
 })
 /*

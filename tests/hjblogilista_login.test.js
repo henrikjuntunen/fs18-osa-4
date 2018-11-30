@@ -24,8 +24,28 @@ describe('(a) testing login action', async () => {
     .expect(401)
     .expect('Content-Type', /application\/json/)
 
-    console.log('response', response)
+  //  console.log('response', response)
     expect(response.error.text).toEqual('{"error":"invalid username or password"}')
+
+  })
+
+
+  test('(2) typed correct login', async () => {
+
+    const typedLogin = {
+      "username": "henrik",
+      "password": "salainen"
+    }
+  
+
+    const response = await api
+    .post('/api/login')
+    .send(typedLogin)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
+  //  console.log('response', response)
+  //  expect(response.error.text).toEqual('{"error":"invalid username or password"}')
 
   })
 
@@ -139,4 +159,10 @@ describe('(b) password', async () => {
       /*
   })
   */
+})
+
+
+afterAll(() => {
+  console.log('(99) after all in login')
+    server.close()
 })
